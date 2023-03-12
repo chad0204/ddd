@@ -3,6 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
+        <!--其实是依赖spring-boot-dependencies, 做整体的版本管理,
+        spring-boot-dependencies包含的部分就不用在当前pom的dependencyManagement中重复声明了-->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
@@ -32,7 +34,7 @@
 
 
     <dependencyManagement>
-        <!--这里不要去声明spring-boot自己的starter的东西, parent已经依赖了-->
+        <!--这里不要去声明parent已有的spring-boot自己的starter的东西, parent已经依赖了-->
         <dependencies>
             <dependency>
                 <groupId>junit</groupId>
@@ -61,6 +63,7 @@
 <!--        </pluginManagement>-->
 
         <plugins>
+            <!--这里也不需要声明, 这个层级没有main可以用来做jar的启动类-->
             <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
