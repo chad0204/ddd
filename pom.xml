@@ -32,7 +32,7 @@
 
 
     <dependencyManagement>
-        <!--这里不要去依赖spring-boot-starter的东西, 这样会使得其他spring-boot的依赖被过滤-->
+        <!--这里不要去声明spring-boot自己的starter的东西, parent已经依赖了-->
         <dependencies>
             <dependency>
                 <groupId>junit</groupId>
