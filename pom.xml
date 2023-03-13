@@ -22,6 +22,7 @@
         <module>ddd-domain</module>
         <module>ddd-infrastructure</module>
         <module>ddd-web</module>
+        <module>ddd-api</module>
     </modules>
 
     <properties>
