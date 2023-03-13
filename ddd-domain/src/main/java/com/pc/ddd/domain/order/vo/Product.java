@@ -1,4 +1,4 @@
-package com.pc.ddd.domain.product;
+package com.pc.ddd.domain.order.vo;
 
 import lombok.Data;
 
