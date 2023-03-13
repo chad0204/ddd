@@ -27,10 +27,14 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <maven.surefire.version>2.23.1-RELEASE</maven.surefire.version>
+        <maven.surefire.version>2.3.1</maven.surefire.version>
+        <maven.compiler.version>2.3.2</maven.compiler.version>
         <spring.booot.version>2.1.0.RELEASE</spring.booot.version>
         <junit.version>4.12</junit.version>
         <org.projectlombok.version>1.16.18</org.projectlombok.version>
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <mysql-connector.version>5.1.33</mysql-connector.version>
+        <guava.version>19.0</guava.version>
     </properties>
 
 
@@ -49,21 +53,57 @@
                 <version>${org.projectlombok.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <build>
-<!--        <pluginManagement>-->
-<!--            <plugins>-->
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.maven.plugins</groupId>-->
-<!--                    <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                    <version>${maven.surefire.version}</version>-->
-<!--                </plugin>-->
-<!--            </plugins>-->
-<!--        </pluginManagement>-->
+        <!--<pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.version}</version>
+                    <configuration>
+                        <encoding>utf-8</encoding>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>-->
 
         <plugins>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>-->
             <!--这里也不需要声明, 这个层级没有main可以用来做jar的启动类-->
             <!--<plugin>
                 <groupId>org.springframework.boot</groupId>

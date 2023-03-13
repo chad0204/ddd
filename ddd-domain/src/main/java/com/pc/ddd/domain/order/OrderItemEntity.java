@@ -1,6 +1,6 @@
 package com.pc.ddd.domain.order;
 
-import com.pc.ddd.domain.product.Product;
+import com.pc.ddd.domain.order.vo.Product;
 import lombok.Data;
 
 @Data
