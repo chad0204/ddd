@@ -14,6 +14,7 @@
     <artifactId>ddd</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>ddd</name>
+    <!--这里需要设置成pom-->
     <packaging>pom</packaging>
     <description>ddd</description>
 
@@ -75,7 +76,7 @@
     </dependencyManagement>
 
     <build>
-        <!--<pluginManagement>
+        <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -93,17 +94,17 @@
                     </configuration>
                 </plugin>
             </plugins>
-        </pluginManagement>-->
+        </pluginManagement>
 
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>-->
-            <!--<plugin>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>-->
+            </plugin>
             <!--这里也不需要声明, 这个层级没有main可以用来做jar的启动类-->
             <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
