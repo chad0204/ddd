@@ -32,10 +32,14 @@
         <maven.compiler.version>2.3.2</maven.compiler.version>
         <spring.booot.version>2.1.0.RELEASE</spring.booot.version>
         <junit.version>4.12</junit.version>
-        <org.projectlombok.version>1.16.18</org.projectlombok.version>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <org.projectlombok.version>1.18.12</org.projectlombok.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <mysql-connector.version>5.1.33</mysql-connector.version>
         <guava.version>19.0</guava.version>
+        <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+        <mybatis.version>3.5.3</mybatis.version>
+        <mybatis-spring.version>2.0.3</mybatis-spring.version>
+        <druid.version>1.1.21</druid.version>
     </properties>
 
 
@@ -54,7 +58,16 @@
                 <version>${org.projectlombok.version}</version>
                 <scope>provided</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -71,6 +84,24 @@
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+           <!-- <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            -->
 
         </dependencies>
     </dependencyManagement>
