@@ -23,7 +23,7 @@
         <module>ddd-application</module>
         <module>ddd-domain</module>
         <module>ddd-infrastructure</module>
-        <module>ddd-web</module>
+        <module>ddd-starter</module>
         <module>ddd-api</module>
     </modules>
 

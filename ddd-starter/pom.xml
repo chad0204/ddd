@@ -7,9 +7,9 @@
         <artifactId>ddd</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>ddd-web</artifactId>
-    <name>ddd-web</name>
-    <description>ddd-web</description>
+    <artifactId>ddd-starter</artifactId>
+    <name>ddd-starter</name>
+    <description>ddd-starter</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
