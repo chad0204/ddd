@@ -1,8 +1,6 @@
-package com.pc.ddd.web.restful;
+package com.pc.ddd.adapter.restful;
 
-import com.pc.ddd.application.dto.CrmPoolDto;
 import com.pc.ddd.application.service.CrmPoolMemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +19,4 @@ public class HeathController {
         return "ok: " + System.currentTimeMillis();
     }
 
-
-    @GetMapping("/get")
-    public String get(String id) {
-        CrmPoolDto crmPool = crmPoolMemberService.get(id);
-        return "ok: " + System.currentTimeMillis();
-    }
 }

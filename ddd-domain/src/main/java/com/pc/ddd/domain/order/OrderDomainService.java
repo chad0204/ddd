@@ -1,6 +1,7 @@
 package com.pc.ddd.domain.order;
 
 import com.pc.ddd.domain.order.vo.Product;
+import org.springframework.stereotype.Service;
 
 /**
  * TODO
@@ -8,6 +9,7 @@ import com.pc.ddd.domain.order.vo.Product;
  * @author pengchao
  * @since 2023/3/13 17:29
  */
+@Service
 public class OrderDomainService {
 
     private OrderAggregateRepository orderAggregateRepository;
@@ -16,12 +18,14 @@ public class OrderDomainService {
 
     public void biz() {
         OrderAggregate originalOrderAggregate = orderAggregateFactory.createOrderAggregate();
-        orderAggregateRepository.put(originalOrderAggregate);
+        orderAggregateRepository.save(originalOrderAggregate);
 
         //如果有其他线程获取聚合根, 并发操作
-        OrderAggregate orderAggregate = orderAggregateRepository.find(new Product());
+        OrderAggregate orderAggregate = orderAggregateRepository.fetchOptional(1L).orElse(null);
         orderAggregate.modifyItemQuantity(new Product(), 10);
-        orderAggregateRepository.put(orderAggregate);
+        orderAggregateRepository.save(orderAggregate);
+
+
 
     }
 

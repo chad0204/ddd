@@ -19,6 +19,7 @@
     <description>ddd</description>
 
     <modules>
+        <module>ddd-adapter</module>
         <module>ddd-application</module>
         <module>ddd-domain</module>
         <module>ddd-infrastructure</module>
@@ -33,7 +34,7 @@
         <spring.booot.version>2.1.0.RELEASE</spring.booot.version>
         <junit.version>4.12</junit.version>
         <org.projectlombok.version>1.18.12</org.projectlombok.version>
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mysql-connector.version>5.1.33</mysql-connector.version>
         <guava.version>19.0</guava.version>
         <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>

@@ -1,10 +1,12 @@
 package com.pc.ddd.infrastructure.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
 /**
- * TODO
  *
  * @author pengchao
  * @since 2023/3/14 18:10
  */
-public class Order {
+@TableName("order")
+public class OrderDO {
 }

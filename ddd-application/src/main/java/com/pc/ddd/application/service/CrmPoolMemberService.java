@@ -1,7 +1,7 @@
 package com.pc.ddd.application.service;
 
 
-import com.pc.ddd.application.dto.CrmPoolDto;
+import com.pc.ddd.api.dto.response.CrmPoolDto;
 import com.pc.ddd.domain.pool.CrmPool;
 import com.pc.ddd.domain.pool.CrmPoolMemberDomainService;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +19,9 @@ public class CrmPoolMemberService {
     private CrmPoolMemberDomainService crmPoolDomainService;
     
     public CrmPoolDto get(String id) {
+
+
+
         CrmPool crmPool = crmPoolDomainService.get(id);
         CrmPoolDto crmPoolDto = new CrmPoolDto();
         BeanUtils.copyProperties(crmPool, crmPoolDto);

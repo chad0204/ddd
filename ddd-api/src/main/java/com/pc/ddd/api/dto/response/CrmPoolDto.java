@@ -1,4 +1,4 @@
-package com.pc.ddd.application.dto;
+package com.pc.ddd.api.dto.response;
 
 import lombok.Data;
 
