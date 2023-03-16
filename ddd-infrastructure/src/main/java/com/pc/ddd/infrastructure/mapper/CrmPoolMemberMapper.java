@@ -1,7 +1,7 @@
 package com.pc.ddd.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pc.ddd.infrastructure.entity.CrmPoolMember;
+import com.pc.ddd.infrastructure.po.CrmPoolMember;
 
 /**
  *

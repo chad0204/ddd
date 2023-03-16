@@ -1,10 +1,12 @@
-package com.pc.ddd.domain.order;
+package com.pc.ddd.domain.model.order;
 
-import com.pc.ddd.domain.order.vo.Product;
 import lombok.Data;
 
+/**
+ * 订单子项
+ */
 @Data
-public class OrderItemEntity {
+public class OrderItem {
     //id
     private Long id;
     //商品(值对象)
@@ -12,7 +14,9 @@ public class OrderItemEntity {
     //数量(值对象)
     private Integer quantity;
     // item总价(值对象)
-    private Float itemAmt;
+    private Double itemAmt;
+    // 订单状态
+    private String status;
 
     public void modifyQuantity(Integer quantity) {
         this.quantity = quantity;

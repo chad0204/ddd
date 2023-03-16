@@ -1,13 +1,17 @@
-package com.pc.ddd.domain.order.vo;
+package com.pc.ddd.domain.model.order;
 
 import lombok.Data;
 
 import java.util.Objects;
 
+/**
+ * 不变量
+ */
 @Data
 public class Product {
-    private String name;
-    private Float price;
+    private final Long id;
+    private final String name;
+    private final Double price;
 
     @Override
     public boolean equals(Object o) {

@@ -1,8 +1,6 @@
 package com.pc.ddd.application.service;
 
-import com.pc.ddd.domain.order.OrderAggregateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.pc.ddd.domain.model.order.OrderAggregateRepository;
 
 /**
  * TODO

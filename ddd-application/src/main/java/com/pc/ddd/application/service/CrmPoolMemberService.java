@@ -2,8 +2,8 @@ package com.pc.ddd.application.service;
 
 
 import com.pc.ddd.api.dto.response.CrmPoolDto;
-import com.pc.ddd.domain.pool.CrmPool;
-import com.pc.ddd.domain.pool.CrmPoolMemberDomainService;
+import com.pc.ddd.domain.model.pool.CrmPool;
+import com.pc.ddd.domain.model.pool.CrmPoolMemberDomainService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

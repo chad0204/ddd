@@ -1,8 +1,8 @@
 package com.pc.ddd.infrastructure.reposiroty;
 
-import com.pc.ddd.domain.pool.CrmPool;
-import com.pc.ddd.domain.pool.CrmPoolMemberRepository;
-import com.pc.ddd.infrastructure.entity.CrmPoolMember;
+import com.pc.ddd.domain.model.pool.CrmPool;
+import com.pc.ddd.domain.model.pool.CrmPoolMemberRepository;
+import com.pc.ddd.infrastructure.po.CrmPoolMember;
 import com.pc.ddd.infrastructure.mapper.CrmPoolMemberMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.pc.ddd.domain.pool;
+package com.pc.ddd.domain.model.pool;
 
 /**
  *

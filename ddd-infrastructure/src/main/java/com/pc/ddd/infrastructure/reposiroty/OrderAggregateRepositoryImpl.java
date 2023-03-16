@@ -1,15 +1,26 @@
 package com.pc.ddd.infrastructure.reposiroty;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pc.ddd.api.dto.qry.PageQry;
 import com.pc.ddd.api.dto.response.PageDTO;
-import com.pc.ddd.domain.order.OrderAggregate;
-import com.pc.ddd.domain.order.OrderAggregateRepository;
-import com.pc.ddd.infrastructure.entity.OrderDO;
+
+import com.pc.ddd.api.enums.OrderStatus;
+import com.pc.ddd.domain.common.Repo;
+import com.pc.ddd.domain.model.order.OrderAggregate;
+import com.pc.ddd.domain.model.order.OrderAggregateRepository;
+import com.pc.ddd.domain.model.order.OrderItem;
+import com.pc.ddd.infrastructure.convert.IOrderConvert;
+import com.pc.ddd.infrastructure.po.OrderDO;
+import com.pc.ddd.infrastructure.po.OrderItemDO;
+import com.pc.ddd.infrastructure.mapper.OrderItemMapper;
 import com.pc.ddd.infrastructure.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
@@ -17,54 +28,84 @@ import java.util.Optional;
  * @since 2023/3/13 18:19
  */
 @Component
-public class OrderAggregateRepositoryImpl extends MyBatisRepo<Long, OrderAggregate, OrderDO> implements OrderAggregateRepository {
+public class OrderAggregateRepositoryImpl extends ServiceImpl<OrderMapper, OrderDO>
+        implements OrderAggregateRepository, Repo<OrderAggregate, OrderDO> {
+
+    //内部聚合
+    private final OrderItemMapper orderItemMapper;
 
     @Autowired
-    public OrderAggregateRepositoryImpl(OrderMapper mapper) {
-        super(mapper);
+    public OrderAggregateRepositoryImpl(OrderItemMapper orderItemMapper) {
+        this.orderItemMapper = orderItemMapper;
     }
 
     @Override
-    public Optional<OrderAggregate> fetchOptional(Long id) {
-        OrderDO orderDO = mapper.selectById(id);
+    public OrderAggregate toBO(OrderDO record) {
+        //TODO join
 
-        //组装OrderItem
+//        orderItemMapper.selectList(Wrappers.lambdaQuery().in("id", Lists.newArrayList("")));
 
-        return Optional.empty();
+        return IOrderConvert.INSTANCE.toBO(record);
     }
 
     @Override
-    public void add(OrderAggregate orderAggregate) {
-
+    public OrderDO toDO(OrderAggregate orderAggregate) {
+        return IOrderConvert.INSTANCE.toDO(orderAggregate);
     }
 
     @Override
-    public void save(OrderAggregate orderAggregate) {
+    public List<OrderAggregate> toBOList(List<OrderDO> records) {
 
-    }
+//        join orderItem
 
-    @Override
-    public void delete(Long id) {
+        List<OrderAggregate> orderAggregates = IOrderConvert.INSTANCE.toBOList(records);
 
-    }
-
-    @Override
-    public List<OrderAggregate> getAll() {
         return null;
     }
 
     @Override
-    OrderAggregate toBO(OrderDO record) {
-        return null;
+    public PageDTO<OrderAggregate> page(PageQry pageQry) {
+        Page<OrderDO> page = new Page<>(pageQry.getPageNumber(), pageQry.getPageSize());
+        Page<OrderDO> pageResult = page(page, Wrappers.lambdaQuery(OrderDO.class));
+
+        return PageDTO.<OrderAggregate>builder()
+                .items(toBOList(pageResult.getRecords()))
+                .pageNumber(pageResult.getCurrent())
+                .pageSize(pageResult.getSize())
+                .itemsTotal(pageResult.getTotal())
+                .build();
     }
 
     @Override
-    OrderDO toDO(OrderAggregate orderAggregate) {
-        return null;
+    public Boolean save(OrderAggregate orderAggregate) {
+        return this.save(toDO(orderAggregate));
     }
 
     @Override
-    public PageDTO<OrderAggregate> pagingByCondition(MappingFindCondition condition) {
-        return null;
+    @Transactional
+    public Boolean update(OrderAggregate orderAggregate) {
+        //修改某个item
+        OrderItem orderItemEntity = orderAggregate.getItems().get(0);
+        OrderItemDO orderItemDO = IOrderConvert.INSTANCE.toDOForItem(orderItemEntity);
+        int update = orderItemMapper.update(orderItemDO,
+                Wrappers.<OrderItemDO>lambdaUpdate()
+                        //如果为空, 清零
+                        .set(orderItemDO.getItemAmt() == null, OrderItemDO::getItemAmt, 0)
+                        .set(OrderItemDO::getVersion, orderItemDO.getVersion() + 1) //版本号+1
+                        .eq(OrderItemDO::getVersion, orderItemDO.getVersion())// 控制并发
+                        .eq(OrderItemDO::getId, orderItemDO.getId()));
+
+        OrderDO orderDO = toDO(orderAggregate);
+        this.lambdaUpdate().eq(OrderDO::getId, orderDO.getId()).update(orderDO);
+
+        if (orderAggregate.getStatus().equals(OrderStatus.FINISH.name())) {
+//            TODO sendMsgToPayDomain
+        }
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public OrderAggregate get(Long id) {
+        return toBO(this.getById(id));
     }
 }

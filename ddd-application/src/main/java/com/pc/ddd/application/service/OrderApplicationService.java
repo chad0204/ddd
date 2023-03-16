@@ -1,12 +1,13 @@
 package com.pc.ddd.application.service;
 
-import com.pc.ddd.api.dto.cmd.OrderCmd;
-import com.pc.ddd.api.dto.qry.OrderQry;
+import com.pc.ddd.api.dto.cmd.ModifyOrderItemCmd;
+import com.pc.ddd.api.dto.qry.PageQry;
 import com.pc.ddd.api.dto.response.OrderDTO;
 import com.pc.ddd.api.dto.response.PageDTO;
-import com.pc.ddd.domain.order.OrderAggregate;
-import com.pc.ddd.domain.order.OrderAggregateRepository;
-import com.pc.ddd.domain.order.OrderDomainService;
+import com.pc.ddd.application.convert.IOrderConvert;
+import com.pc.ddd.domain.model.order.OrderAggregate;
+import com.pc.ddd.domain.model.order.OrderAggregateRepository;
+import com.pc.ddd.domain.model.order.OrderDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,27 +23,33 @@ public class OrderApplicationService {
     @Autowired
     private OrderAggregateRepository orderAggregateRepository;
     @Autowired
-    private OrderDomainService domainService;
+    private OrderDomainService orderDomainService;
 
-    public PageDTO<OrderDTO> pageList(OrderQry qry) {
+    /**
+     * 是不是可以不走domain层, 因为没有写操作, 就算破坏聚合封装性也没关系
+     * @param qry
+     * @return
+     */
+    public PageDTO<OrderDTO> pageList(PageQry qry) {
 
         //TODO Repository是围绕聚合实现的, 这里返回的都是聚合根, 而query应该不需要依赖领域对象,
         // 但是由于这里不能直接调用mapper, 所以还是通过domain层来实现, 但是只用到repository接口。
 
-        //qry -> condition
-        OrderAggregateRepository.MappingFindCondition condition = OrderAggregateRepository.MappingFindCondition.builder().build();
+        PageDTO<OrderAggregate> page = orderAggregateRepository.page(qry);
         //domain -> dto
-        orderAggregateRepository.pagingByCondition(condition);
+        IOrderConvert.INSTANCE.toDTOList(page.getItems());
         return null;
     }
 
-
-    public PageDTO<OrderDTO> save(OrderCmd cmd) {
-        //cmd -> condition
-        //domainService
-        return null;
+    public Boolean save(ModifyOrderItemCmd cmd) {
+        return orderDomainService.create(cmd);
     }
 
+    public Boolean modifyItemQuantity(ModifyOrderItemCmd cmd) {
+        return orderDomainService.modifyItemQuantity(cmd);
+    }
 
-
+    public Boolean modifyItemStatus(ModifyOrderItemCmd cmd) {
+        return orderDomainService.modifyItemStatus(cmd);
+    }
 }

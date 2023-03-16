@@ -1,7 +1,7 @@
 package com.pc.ddd.adapter.restful;
 
-import com.pc.ddd.api.dto.cmd.OrderCmd;
-import com.pc.ddd.api.dto.qry.OrderQry;
+import com.pc.ddd.api.dto.cmd.ModifyOrderItemCmd;
+import com.pc.ddd.api.dto.qry.PageQry;
 import com.pc.ddd.api.dto.response.*;
 import com.pc.ddd.application.service.OrderApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class OrderController {
 
     @GetMapping("/page")
     public PageResponse<OrderDTO> pageList(@RequestParam String id) {
-        OrderQry orderQry = new OrderQry();
-        PageDTO<OrderDTO> pageResult = orderService.pageList(orderQry);
+        PageQry pageQry = new PageQry();
+        PageDTO<OrderDTO> pageResult = orderService.pageList(pageQry);
         return PageResponse.of(
                 pageResult.getItems(),
                 pageResult.getItemsTotal(),
@@ -32,8 +32,8 @@ public class OrderController {
 
 
     @GetMapping("/save")
-    public Response get(@RequestBody OrderCmd cmd) {
-
+    public Response get(@RequestBody ModifyOrderItemCmd cmd) {
+        orderService.modifyItemQuantity(cmd);
         return null;
     }
 
