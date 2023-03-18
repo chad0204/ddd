@@ -1,15 +1,26 @@
 package com.pc.ddd.application.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pc.ddd.api.dto.cmd.ModifyOrderItemCmd;
+import com.pc.ddd.api.dto.cmd.OrderAddCmd;
 import com.pc.ddd.api.dto.qry.PageQry;
 import com.pc.ddd.api.dto.response.OrderDTO;
 import com.pc.ddd.api.dto.response.PageDTO;
-import com.pc.ddd.application.convert.IOrderConvert;
-import com.pc.ddd.domain.model.order.OrderAggregate;
+import com.pc.ddd.api.dto.response.Response;
+import com.pc.ddd.application.execute.cmd.OrderAddCmdExe;
+import com.pc.ddd.application.execute.cmd.OrderModifyItemQuantityCmdExe;
+import com.pc.ddd.application.execute.cmd.OrderModifyItemStatusCmdExe;
+import com.pc.ddd.application.execute.query.OrderPageQryExe;
 import com.pc.ddd.domain.model.order.OrderAggregateRepository;
 import com.pc.ddd.domain.model.order.OrderDomainService;
+
+import com.pc.ddd.infrastructure.mapper.OrderMapper;
+import com.pc.ddd.infrastructure.po.OrderDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * TODO
@@ -20,36 +31,41 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderApplicationService {
 
+
+
+    private final OrderPageQryExe orderPageQryExe;
+    private final OrderAddCmdExe orderAddCmdExe;
+    private final OrderModifyItemQuantityCmdExe modifyItemQuantityCmdExe;
+    private final OrderModifyItemStatusCmdExe modifyItemStatusCmdExe;
+
     @Autowired
-    private OrderAggregateRepository orderAggregateRepository;
-    @Autowired
-    private OrderDomainService orderDomainService;
+    public OrderApplicationService(OrderPageQryExe orderPageQryExe, OrderAddCmdExe orderAddCmdExe, OrderModifyItemQuantityCmdExe modifyItemQuantityCmdExe, OrderModifyItemStatusCmdExe modifyItemStatusCmdExe) {
+        this.orderPageQryExe = orderPageQryExe;
+        this.orderAddCmdExe = orderAddCmdExe;
+        this.modifyItemQuantityCmdExe = modifyItemQuantityCmdExe;
+        this.modifyItemStatusCmdExe = modifyItemStatusCmdExe;
+    }
+
 
     /**
-     * 是不是可以不走domain层, 因为没有写操作, 就算破坏聚合封装性也没关系
+     * 因为没有写操作, 就算破坏聚合封装性也没关系
      * @param qry
      * @return
      */
     public PageDTO<OrderDTO> pageList(PageQry qry) {
-
-        //TODO Repository是围绕聚合实现的, 这里返回的都是聚合根, 而query应该不需要依赖领域对象,
-        // 但是由于这里不能直接调用mapper, 所以还是通过domain层来实现, 但是只用到repository接口。
-
-        PageDTO<OrderAggregate> page = orderAggregateRepository.page(qry);
-        //domain -> dto
-        IOrderConvert.INSTANCE.toDTOList(page.getItems());
-        return null;
+        return orderPageQryExe.execute(qry);
     }
 
-    public Boolean save(ModifyOrderItemCmd cmd) {
-        return orderDomainService.create(cmd);
+    public Response save(OrderAddCmd cmd) {
+        orderAddCmdExe.execute(cmd);
+        return Response.buildSuccess();
     }
 
     public Boolean modifyItemQuantity(ModifyOrderItemCmd cmd) {
-        return orderDomainService.modifyItemQuantity(cmd);
+        return modifyItemQuantityCmdExe.execute(cmd);
     }
 
     public Boolean modifyItemStatus(ModifyOrderItemCmd cmd) {
-        return orderDomainService.modifyItemStatus(cmd);
+        return modifyItemStatusCmdExe.execute(cmd);
     }
 }

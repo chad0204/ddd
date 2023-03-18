@@ -19,7 +19,7 @@
         <!--通过这个module依赖所有的子module, 完成bean扫描-->
         <dependency>
             <groupId>com.pc</groupId>
-            <artifactId>ddd-infrastructure</artifactId>
+            <artifactId>ddd-application</artifactId>
             <version>${project.version}</version>
         </dependency>
 

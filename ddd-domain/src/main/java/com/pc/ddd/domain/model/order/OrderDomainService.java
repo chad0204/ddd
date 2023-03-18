@@ -1,6 +1,7 @@
 package com.pc.ddd.domain.model.order;
 
 import com.pc.ddd.api.dto.cmd.ModifyOrderItemCmd;
+import com.pc.ddd.api.dto.cmd.OrderAddCmd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,16 @@ public class OrderDomainService {
     @Autowired
     private OrderAggregateFactory orderAggregateFactory;
 
-    public Boolean create(ModifyOrderItemCmd cmd) {
+    public Boolean create(OrderAddCmd cmd) {
         OrderAggregate orderAggregate = orderAggregateFactory.createOrderAggregate(cmd);
         return orderAggregateRepository.save(orderAggregate);
     }
 
+    /**
+     * TODO 是不是应该放在应用层
+     * @param cmd
+     * @return
+     */
     public Boolean modifyItemQuantity(ModifyOrderItemCmd cmd) {
         /*
          *

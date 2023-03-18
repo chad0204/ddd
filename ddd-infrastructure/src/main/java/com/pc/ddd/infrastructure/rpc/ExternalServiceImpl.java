@@ -1,7 +1,5 @@
 package com.pc.ddd.infrastructure.rpc;
 
-import com.pc.ddd.application.service.CrmPoolMemberService;
-
 /**
  *
  * 依赖的外部rpc
@@ -10,5 +8,5 @@ import com.pc.ddd.application.service.CrmPoolMemberService;
  */
 public class ExternalServiceImpl {
 
-    CrmPoolMemberService crmPoolMemberService;
+
 }

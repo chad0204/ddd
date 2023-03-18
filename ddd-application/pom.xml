@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.pc</groupId>
-            <artifactId>ddd-domain</artifactId>
+            <artifactId>ddd-infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
 

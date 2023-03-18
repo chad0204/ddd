@@ -1,8 +1,7 @@
 package com.pc.ddd.domain.model.order;
 
 
-import com.pc.ddd.api.dto.qry.PageQry;
-import com.pc.ddd.api.dto.response.PageDTO;
+import java.util.List;
 
 
 /**
@@ -12,7 +11,12 @@ import com.pc.ddd.api.dto.response.PageDTO;
  */
 public interface OrderAggregateRepository {
 
-    PageDTO<OrderAggregate> page(PageQry pageQry);
+    /**
+     * 服务于领域层的查询 必须通过唯一标识来查询
+     * @param id
+     * @return
+     */
+    List<OrderItem> list(Long id);
 
     Boolean save(OrderAggregate orderAggregate);
 

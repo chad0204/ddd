@@ -63,17 +63,10 @@ public class OrderAggregateRepositoryImpl extends ServiceImpl<OrderMapper, Order
         return null;
     }
 
-    @Override
-    public PageDTO<OrderAggregate> page(PageQry pageQry) {
-        Page<OrderDO> page = new Page<>(pageQry.getPageNumber(), pageQry.getPageSize());
-        Page<OrderDO> pageResult = page(page, Wrappers.lambdaQuery(OrderDO.class));
 
-        return PageDTO.<OrderAggregate>builder()
-                .items(toBOList(pageResult.getRecords()))
-                .pageNumber(pageResult.getCurrent())
-                .pageSize(pageResult.getSize())
-                .itemsTotal(pageResult.getTotal())
-                .build();
+    @Override
+    public List<OrderItem> list(Long id) {
+        return null;
     }
 
     @Override
