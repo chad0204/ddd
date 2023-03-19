@@ -1,17 +1,12 @@
 package com.pc.ddd.domain.common;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
-
 /**
  *
  * 仓储接口
  *
  */
-public interface Repo<BO, DO> extends IService<DO> {
+public interface Repo<BO, DO>{
 
     abstract BO toBO(DO record);
 

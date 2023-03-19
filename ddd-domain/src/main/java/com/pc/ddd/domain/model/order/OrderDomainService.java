@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 /**
  * 领域服务 跨多个实体
  *
+ * 比如计算订单的商品总价
+ * 聚合实体数量非常多, 无法在聚合中完成, 直接在聚合中完成浪费内存。但是单个聚合实体又无法完成。
+ * 要么在聚合中依赖repository（尽量避免在聚合中使用repo）
+ *
+ *
  * @author pengchao
  * @since 2023/3/13 17:29
  */
