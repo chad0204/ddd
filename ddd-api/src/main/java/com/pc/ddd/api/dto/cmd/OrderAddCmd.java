@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2023/3/15 20:41
  */
 @Data
-public class OrderAddCmd {
+public class OrderAddCmd implements CMD {
     private Long orderId;
     private Long itemId;
     private Integer quantity;
