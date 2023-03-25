@@ -6,7 +6,7 @@ import java.util.List;
  * 仓储接口
  *
  */
-public interface Repo<BO, DO>{
+public interface Repo<BO, DO> {
 
     abstract BO toBO(DO record);
 

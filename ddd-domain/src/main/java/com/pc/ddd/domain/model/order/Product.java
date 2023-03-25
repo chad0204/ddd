@@ -9,7 +9,8 @@ import java.util.Objects;
  */
 @Data
 public class Product {
-    private final Long id;
+    //这里作为值对象 不要暴露唯一标识
+//    private final Long id;
     private final String name;
     private final Double price;
 

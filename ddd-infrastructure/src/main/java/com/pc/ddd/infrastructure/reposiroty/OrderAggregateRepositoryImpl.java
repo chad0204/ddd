@@ -1,21 +1,17 @@
 package com.pc.ddd.infrastructure.reposiroty;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pc.ddd.api.dto.qry.PageQry;
-import com.pc.ddd.api.dto.response.PageDTO;
-
 import com.pc.ddd.api.enums.OrderStatus;
 import com.pc.ddd.domain.common.Repo;
 import com.pc.ddd.domain.model.order.OrderAggregate;
 import com.pc.ddd.domain.model.order.OrderAggregateRepository;
 import com.pc.ddd.domain.model.order.OrderItem;
 import com.pc.ddd.infrastructure.convert.IOrderConvert;
-import com.pc.ddd.infrastructure.po.OrderDO;
-import com.pc.ddd.infrastructure.po.OrderItemDO;
 import com.pc.ddd.infrastructure.mapper.OrderItemMapper;
 import com.pc.ddd.infrastructure.mapper.OrderMapper;
+import com.pc.ddd.infrastructure.po.OrderDO;
+import com.pc.ddd.infrastructure.po.OrderItemDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +20,10 @@ import java.util.List;
 
 /**
  *
+ * ServiceImpl的使用是Repo接口继承IService<PO>, Repo实现继承ServiceImpl<Mapper, PO>
+ * 由于Repo接口的定义在domain层, domain层拿不到PO, 无法让接口继承IService<PO>。
+ * 所以这里只有Repo实现继承ServiceImpl<Mapper, PO>, 仅仅在Repo内部简化代码。
+ *
  * @author pengchao
  * @since 2023/3/13 18:19
  */
@@ -31,11 +31,13 @@ import java.util.List;
 public class OrderAggregateRepositoryImpl extends ServiceImpl<OrderMapper, OrderDO>
         implements OrderAggregateRepository, Repo<OrderAggregate, OrderDO> {
 
-    //内部聚合
+    //内部聚合, 这里repo使用了ServiceImpl继承OrderMapper的crud, 然后通过组合使用OrderItemMapper
+    //大部分聚合(只有聚合根)可能不需要组合, 只继承ServiceImpl即可
     private final OrderItemMapper orderItemMapper;
 
     @Autowired
     public OrderAggregateRepositoryImpl(OrderItemMapper orderItemMapper) {
+
         this.orderItemMapper = orderItemMapper;
     }
 

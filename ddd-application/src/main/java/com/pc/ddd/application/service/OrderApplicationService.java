@@ -1,7 +1,5 @@
 package com.pc.ddd.application.service;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pc.ddd.api.dto.cmd.ModifyOrderItemCmd;
 import com.pc.ddd.api.dto.cmd.OrderAddCmd;
 import com.pc.ddd.api.dto.qry.PageQry;
@@ -12,15 +10,8 @@ import com.pc.ddd.application.execute.cmd.OrderAddCmdExe;
 import com.pc.ddd.application.execute.cmd.OrderModifyItemQuantityCmdExe;
 import com.pc.ddd.application.execute.cmd.OrderModifyItemStatusCmdExe;
 import com.pc.ddd.application.execute.query.OrderPageQryExe;
-import com.pc.ddd.domain.model.order.OrderAggregateRepository;
-import com.pc.ddd.domain.model.order.OrderDomainService;
-
-import com.pc.ddd.infrastructure.mapper.OrderMapper;
-import com.pc.ddd.infrastructure.po.OrderDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * TODO

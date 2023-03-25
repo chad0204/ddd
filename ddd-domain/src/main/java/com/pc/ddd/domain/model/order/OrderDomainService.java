@@ -39,18 +39,21 @@ public class OrderDomainService {
          *
          *  3 + 2 - 1 = 4
          *
-         * 执行先A 后 B
+         * A B并发查到3
+         * 并执行计算
          *  A +2 = 5
          *  B -1 = 2
-         * A结束后是5, 然后B结束是2
+         * A结束后是5, 然后B结束是2, 最终结果可能是5也可能是2, 但是期望是4
          *
          *
          */
         //因为是先查后更新, 更新不是原子操作, 所以
         //如果有其他线程获取聚合根, 并发操作 线程A +2 线程B -1
+        //要么乐观锁 要么悲观锁
         //需要加版本号
         //所以聚合要小
         //如果并发失败, 就是无效操作, 会不会是性能浪费
+        //
         OrderAggregate orderAggregate = orderAggregateRepository.get(cmd.getOrderId());
         orderAggregate.modifyItemQuantity(cmd.getItemId(), cmd.getQuantity());
         return orderAggregateRepository.update(orderAggregate);
