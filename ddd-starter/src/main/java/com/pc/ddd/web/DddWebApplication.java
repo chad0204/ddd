@@ -1,11 +1,10 @@
 package com.pc.ddd.web;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
-        "com.pc.ddd"
+        "com.pc.ddd"//这样配置扫描的有点多, 不如指定具体目录
 //        "com.pc.ddd.domain",
 //        "com.pc.ddd.web",
 //        "com.pc.ddd.application",

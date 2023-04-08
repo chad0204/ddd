@@ -1,5 +1,6 @@
 package com.pc.ddd.domain.model.order;
 
+import com.pc.ddd.api.dto.Result;
 import com.pc.ddd.api.dto.cmd.ModifyOrderItemCmd;
 import com.pc.ddd.api.dto.cmd.OrderAddCmd;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderDomainService {
 
-    @Autowired
-    private OrderAggregateRepository orderAggregateRepository;
-    @Autowired
-    private OrderAggregateFactory orderAggregateFactory;
+    private final OrderAggregateRepository orderAggregateRepository;
+    private final OrderAggregateFactory orderAggregateFactory;
 
-    public Boolean create(OrderAddCmd cmd) {
+    public OrderDomainService(OrderAggregateRepository orderAggregateRepository, OrderAggregateFactory orderAggregateFactory) {
+        this.orderAggregateRepository = orderAggregateRepository;
+        this.orderAggregateFactory = orderAggregateFactory;
+    }
+
+    public Result<Boolean> create(OrderAddCmd cmd) {
         OrderAggregate orderAggregate = orderAggregateFactory.createOrderAggregate(cmd);
-        return orderAggregateRepository.save(orderAggregate);
+        return Result.of(orderAggregateRepository.save(orderAggregate));
     }
 
     /**

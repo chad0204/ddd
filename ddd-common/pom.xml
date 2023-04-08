@@ -7,31 +7,22 @@
         <artifactId>ddd</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>ddd-application</artifactId>
-    <name>ddd-application</name>
-    <description>ddd-application</description>
+    <artifactId>ddd-common</artifactId>
+    <name>ddd-common</name>
+    <description>ddd-common</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.pc</groupId>
-            <artifactId>ddd-infrastructure</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.pc</groupId>
-            <artifactId>ddd-api</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>

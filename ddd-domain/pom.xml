@@ -19,10 +19,10 @@
             <artifactId>ddd-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>com.pc</groupId>
+            <artifactId>ddd-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -31,14 +31,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
 
     </dependencies>
 
