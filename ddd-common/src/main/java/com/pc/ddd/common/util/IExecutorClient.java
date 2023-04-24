@@ -7,7 +7,7 @@ package com.pc.ddd.common.util;
 
 import com.pc.ddd.common.util.bean.BeanNameStrategy;
 
-public interface IExecutorFactory {
+public interface IExecutorClient {
     /**
      * 执行器
      *

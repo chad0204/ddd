@@ -55,7 +55,7 @@ public class OrderDomainService {
         //如果有其他线程获取聚合根, 并发操作 线程A +2 线程B -1
         //要么乐观锁 要么悲观锁
         //需要加版本号
-        //所以聚合要小
+        //所以聚合要小, 无论是乐观和悲观, 大聚合都会增加冲突
         //如果并发失败, 就是无效操作, 会不会是性能浪费
         //
         OrderAggregate orderAggregate = orderAggregateRepository.get(cmd.getOrderId());

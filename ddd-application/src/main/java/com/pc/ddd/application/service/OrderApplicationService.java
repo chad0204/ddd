@@ -10,6 +10,7 @@ import com.pc.ddd.application.execute.cmd.OrderAddCmdExe;
 import com.pc.ddd.application.execute.cmd.OrderModifyItemQuantityCmdExe;
 import com.pc.ddd.application.execute.cmd.OrderModifyItemStatusCmdExe;
 import com.pc.ddd.application.execute.query.OrderPageQryExe;
+import com.pc.ddd.common.util.IExecutorClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +24,24 @@ import org.springframework.stereotype.Service;
 public class OrderApplicationService {
 
 
-
+    //这里要注入所有的exe, 不如通过spring动态去找
     private final OrderPageQryExe orderPageQryExe;
     private final OrderAddCmdExe orderAddCmdExe;
     private final OrderModifyItemQuantityCmdExe modifyItemQuantityCmdExe;
     private final OrderModifyItemStatusCmdExe modifyItemStatusCmdExe;
+    private final IExecutorClient executorClient;
 
     @Autowired
-    public OrderApplicationService(OrderPageQryExe orderPageQryExe, OrderAddCmdExe orderAddCmdExe, OrderModifyItemQuantityCmdExe modifyItemQuantityCmdExe, OrderModifyItemStatusCmdExe modifyItemStatusCmdExe) {
+    public OrderApplicationService(OrderPageQryExe orderPageQryExe,
+                                   OrderAddCmdExe orderAddCmdExe,
+                                   OrderModifyItemQuantityCmdExe modifyItemQuantityCmdExe,
+                                   OrderModifyItemStatusCmdExe modifyItemStatusCmdExe,
+                                   IExecutorClient executorClient) {
         this.orderPageQryExe = orderPageQryExe;
         this.orderAddCmdExe = orderAddCmdExe;
         this.modifyItemQuantityCmdExe = modifyItemQuantityCmdExe;
         this.modifyItemStatusCmdExe = modifyItemStatusCmdExe;
+        this.executorClient = executorClient;
     }
 
 
@@ -48,15 +55,15 @@ public class OrderApplicationService {
     }
 
     public Response save(OrderAddCmd cmd) {
-        orderAddCmdExe.execute(cmd);
+        executorClient.execute(cmd);
         return Response.buildSuccess();
     }
 
     public Boolean modifyItemQuantity(ModifyOrderItemCmd cmd) {
-        return modifyItemQuantityCmdExe.execute(cmd);
+        return executorClient.execute(cmd);
     }
 
     public Boolean modifyItemStatus(ModifyOrderItemCmd cmd) {
-        return modifyItemStatusCmdExe.execute(cmd);
+        return executorClient.execute(cmd);
     }
 }

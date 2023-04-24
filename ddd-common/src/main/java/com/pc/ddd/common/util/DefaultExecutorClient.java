@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  *
  */
 @Component
-public class DefaultExecutorFactory implements IExecutorFactory {
+public class DefaultExecutorClient implements IExecutorClient {
     /**
      * Spring bean容器
      */
